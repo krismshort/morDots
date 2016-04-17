@@ -55,9 +55,58 @@ function ShortTabLine()
     endfor
 endfunction
 """""""""""""""""""""""""""""""""""""""""""
+"
+"
+" Persistent Undo
+if has('persistent_undo')
+    " Save all undo files in a single location (less messy, more risky)...
+    set undodir=$HOME/.VIM_UNDO_FILES
+
+    " Save a lot of back-history...
+    set undolevels=5000
+
+    " Actually switch on persistent undo
+    set undofile
+
+endif
+"
+"
+" View bad characters
+exec "set lcs=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+"
+" set wildmenu
+set wildmenu
+"
+"
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove 
+map <leader>t<leader> :tabnext 
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
 
 
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+"
+"
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
+" Specify the behavior when switching between buffers 
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
+"
+"
 " Set look of status line
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\[TYPE=%Y]\ [POS=%04,%04v][%p%%]\[LEN=%L]
 "
@@ -161,6 +210,14 @@ set virtualedit=onemore
 "
 " Spell Check
 set spell
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+"
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+
+" Quickly open a markdown buffer for scribble
+map <leader>x :e ~/buffer.md<cr>
 "
 " Allow buffer switching without saving
 set hidden

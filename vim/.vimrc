@@ -5,6 +5,7 @@
 " Use vim not vi settings!!!
 set nocompatible
 "
+"
 " Set size of history
 set history=9999
 "
@@ -171,13 +172,9 @@ colorscheme material
 "
 "set background=dark
 "
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
+" Fast edit config
+map <leader>e :e! ~/.vim_runtime/my_configs.vim<cr>
+autocmd! bufwritepost vimrc source ~/.vim_runtime/my_configs.vim
 "
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -297,3 +294,9 @@ let g:vimwiki_ext2syntax={".tex": "latex",
     :hi VimwikiHeader4 guifg=#000CCD
     :hi VimwikiHeader5 guifg=#A00AAA
     :hi VimwikiHeader6 guifg=#C0DDDD
+"
+"
+" Syntastic
+"
+" Python
+let g:syntastic_python_checkers=['pyflakes']

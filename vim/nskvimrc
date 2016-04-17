@@ -2,42 +2,26 @@ set nocompatible
 " Plugins
 set filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
-"call vundle#begin()
+call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
-call vundle#begin('/.vim/bundle')
+"call vundle#begin('/.vim/bundle')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-"Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-"Plugin 'L9'
-" Git plugin not hosted on GitHub
-"Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-"Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-"Plugin 'ascenator/L9', {'name': 'newL9'}
 "
-Plugin 'mattn/calendar-vim'
-Plugin 'vimwiki/vimwiki"
-Plugin 'lervag/vimtex'
-Plugin 'teranex/vimwiki-tasks'
-Plugin 'petercrlane/vimwiki-find-tag'
-Plugin 'mbadolato/iTerm2-Color-Schemes'
-Plugin 'baruchel/vim-notebook'
-Plugin 'wannesm/wmgraphviz.vim'
+Plugin "mattn/calendar-vim"
+Plugin "vimwiki/vimwiki"
+Plugin "lervag/vimtex"
+Plugin "teranex/vimwiki-tasks"
+Plugin "petercrlane/vimwiki-find-tag"
+Plugin "mbadolato/iTerm2-Color-Schemes"
+Plugin "baruchel/vim-notebook"
+Plugin "wannesm/wmgraphviz.vim"
 call vundle#end()
 "
 " Filetype plugins
-filetype plugin indent on
+filetype on
+"
 set virtualedit=onemore
 set background=dark
 set term=ansi

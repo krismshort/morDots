@@ -145,11 +145,21 @@ set foldcolumn=1
 "" Enable syntax highlighting
 syntax enable
 ""
-"" Colorschem
+"" Colorscheme
 try
     colorscheme material
 catch
 endtry
+""colorscheme bluished
+""colorscheme Deeper
+""colorscheme Gray_Days_are_the_Best_Days
+""colorscheme Purple_Drinked
+""colorscheme Reddest
+""colorscheme SeaWeedz
+""colorscheme Strawberry_Fiords
+""colorscheme TooMuchPink
+""colorscheme Yes_We_Ate_Our_Vegetables
+""colorscheme TooMuchPink
 ""
 set background=dark
 ""
@@ -181,11 +191,6 @@ func! DeleteTrailingWS()
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
-""
-"" Use Bundles config
-if filereadable(expand("~/.vimrc.bundles"))
-    source ~/.vimrc.bundles
-endif
 ""
 "" Automatically enable mouse usage
 set mouse=a  
@@ -221,3 +226,56 @@ set cursorline                  " Highlight current line
 set iskeyword-=.                    " '.' is an end of word designator
 set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator
+
+set filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'mattn/calendar-vim'
+Plugin 'vimwiki/vimwiki"
+Plugin 'lervag/vimtex'
+Plugin 'teranex/vimwiki-tasks'
+Plugin 'petercrlane/vimwiki-find-tag'
+Plugin 'mbadolato/iTerm2-Color-Schemes'
+Plugin 'baruchel/vim-notebook'
+Plugin 'wannesm/wmgraphviz.vim'
+call vundle#end()
+filetype plugin indent on 
+
+set wrap linebreak nolist
+
+
+
+au BufRead,BufNewFile *.wiki set filetype=vimwiki
+:autocmd FileType vimwiki map l :VimwikiMakeDiaryNote
+function! ToggleCalendar()
+  execute “:Calendar”
+  if exists("g:calendar_open")
+    if g:calendar_open == 1
+      execute “q”
+      unlet g:calendar_open
+    else
+      g:calendar_open = 1
+    end
+  else
+    let g:calendar_open = 1
+  end
+endfunction
+:autocmd FileType vimwiki map c :call ToggleCalendar()Bundle ''
+
+let g:calendar_openvimiwiki_use_calendar=1
+
+let g:vimwiki_toc_header="Contents"
+
+let g:vimwiki_folding="expr"
+
+let g:vimwiki_ext2syntax={".tex": "latex",
+                        \ ".md": "markdown",
+                        \ ".wiki": "media"}
+
+let g:vimwiki_hl_headers=1
+    :hi VimwikiHeader1 guifg=#A00000
+    :hi VimwikiHeader2 guifg=#CCBA00
+    :hi VimwikiHeader3 guifg=#00E000
+    :hi VimwikiHeader4 guifg=#000CCD
+    :hi VimwikiHeader5 guifg=#A00AAA
+    :hi VimwikiHeader6 guifg=#C0DDDD

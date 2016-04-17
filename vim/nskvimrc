@@ -13,7 +13,7 @@ set cursorline
 hi CursorLine term=bold cterm=bold guibg=Grey40
 hi CursorColumn guibg=#FF0000
 set ruler
-set rulerformat=%30(%=\"b%n%y%m%r%w\ %l,%c%V\ %P%)
+"set rulerformat=%30(%=\"b%n%y%m%r%w\ %l,%c%V\ %P%)
 set showcmd
 set laststatus=2
 set statusline=%<%f\

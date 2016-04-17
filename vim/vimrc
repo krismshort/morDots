@@ -40,16 +40,18 @@ Plugin 'mbadolato/iTerm2-Color-Schemes'
 Plugin 'baruchel/vim-notebook'
 Plugin 'wannesm/wmgraphviz.vim'
 call vundle#end()
-
-filetype plugin indent on
+"
+" Filetype plugins
+filetype plugin on
+filetype indent on
 "
 "
 " Set size of history
 set history=9999
 "
-" Filetype plugins
-filetype plugin on
-filetype indent on
+syntax enable
+syntax on
+
 "
 "" Set auto read files changed from outside
 set autoread
@@ -154,9 +156,9 @@ set laststatus=2
 "
 " Show position
 set ruler
+set rulerformat=%30(%=\"b%n%y%m%r%w\ %l,%c%V\ %P%)
+set showcmd
 "
-" Set height of command bar
-set cmdheight=2
 "
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -192,8 +194,6 @@ set tm=500
 " Add extra margin space on left
 set foldcolumn=1
 "
-" Enable syntax highlighting
-syntax enable
 "
 "" Colorscheme
 colorscheme material
@@ -218,11 +218,20 @@ autocmd! bufwritepost vimrc source ~/.vim_runtime/my_configs.vim
 set encoding=utf8
 "
 ""
-" Always show the status line
 set laststatus=2
+set statusline=%<%f\
+set statusline+=%w%h%m%r
+set statusline+=\[%{&ff}/%Y]
+set statusline+=\[%{getcwd()}]
+set statusline+=\[A=\%03.3b/H=%02.2B]
+set statusline+=%=%-14.(%l,%c%V%)\ %p%%
+set backspace=indent,eol,start
+set linespace=0
 "
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+" cursor
+set cursorline
+hi CursorLine term=bold cterm=bold guibg=Grey40
+hi CursorColumn guibg=#FF0000
 "
 " Delete trailing white space on save
 function DeleteTrailingWS()
@@ -234,7 +243,7 @@ autocmd BufWrite *.py :call DeleteTrailingWS()
 "
 " Automatically enable mouse usage
 set mouse=a  
-""
+"
 "  Hide the mouse cursor while typing
 set mousehide
 "
@@ -250,7 +259,6 @@ map <leader>ss :setlocal spell!<cr>
 "
 " Quickly open a buffer for scribble
 map <leader>q :e ~/buffer<cr>
-
 " Quickly open a markdown buffer for scribble
 map <leader>x :e ~/buffer.md<cr>
 "
@@ -260,8 +268,6 @@ set hidden
 " Display the current mode
 set showmode
 "
-" Highlight current line
-set cursorline
 "
 " is a word
 " '.' is an end of word designator

@@ -1,0 +1,330 @@
+"""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""[[ Vimrc  ]]""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""
+"
+" Use vim not vi settings!!!
+set nocompatible
+" Plugins
+set filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+Plugin 'L9'
+" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+Plugin 'ascenator/L9', {'name': 'newL9'}
+"
+Plugin 'mattn/calendar-vim'
+Plugin 'vimwiki/vimwiki"
+Plugin 'lervag/vimtex'
+Plugin 'teranex/vimwiki-tasks'
+Plugin 'petercrlane/vimwiki-find-tag'
+Plugin 'mbadolato/iTerm2-Color-Schemes'
+Plugin 'baruchel/vim-notebook'
+Plugin 'wannesm/wmgraphviz.vim'
+call vundle#end()
+"
+" Filetype plugins
+filetype plugin on
+filetype indent on
+"
+"
+" Set size of history
+set history=9999
+"
+syntax enable
+syntax on
+
+"
+"" Set auto read files changed from outside
+set autoread
+"
+" Set Leader
+let mapleader=","
+let g;mapleader=","
+"
+" Highlight comments
+highlight Comment term=bold ctermfg=white
+""
+" Set encoding
+set encoding=utf8
+"
+" Keep tabs from doing stupid shit
+set noexpandtab
+set tabstop=4
+set shiftwidth=4
+"
+" Modify look of tabline
+set tabline=tabline-layout
+"
+" List only first six letters of title and highlight the active tab
+function ShortTabLine()
+    let ret = ""
+    for i in range(tabpaenr("$")
+        if i + 1 == tabpagenr()
+            let ret = "%#errorMsg"
+        else
+            let ret = "%#TabLine#"
+        endif
+        let buflist = tabpagebuflist(i+1)
+        let winnr = tabpagewinnr(i+1)
+        let buffername = bufname(buflist[winnr - 1])
+        let filename = fnamemodify(buffername, ";t")
+        if filename == " "
+            let filename = "noname"
+        endif
+        if strlen(filename) >= 8
+            let ret = "[".filename."]"
+        endif
+    endfor
+endfunction
+"""""""""""""""""""""""""""""""""""""""""""
+"
+"
+" Persistent Undo
+if has('persistent_undo')
+    " Save all undo files in a single location (less messy, more risky)...
+    set undodir=$HOME/.VIM_UNDO_FILES
+
+    " Save a lot of back-history...
+    set undolevels=5000
+
+    " Actually switch on persistent undo
+    set undofile
+
+endif
+"
+"
+" View bad characters
+exec "set lcs=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+"
+" set wildmenu
+set wildmenu
+"
+"
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove 
+map <leader>t<leader> :tabnext 
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+"
+"
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Specify the behavior when switching between buffers 
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
+"
+"
+" Set look of status line
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\[TYPE=%Y]\ [POS=%04,%04v][%p%%]\[LEN=%L]
+"
+" Make the statusline appear on line 2
+set laststatus=2
+"
+" Show position
+set ruler
+set rulerformat=%30(%=\"b%n%y%m%r%w\ %l,%c%V\ %P%)
+set showcmd
+"
+"
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+"
+" Ignore case when searching
+set ignorecase
+" When searching try to be smart about cases 
+set smartcase
+"
+" Highlight search results
+set hlsearch
+"
+"" Makes search act like search in modern browsers
+et incsearch 
+""
+" Don't redraw while executing macros (good performance config)
+set lazyredraw 
+"
+" For regular expressions turn magic on
+set magic
+"
+" Show matching brackets when text indicator is over them
+set showmatch 
+" How many tenths of a second to blink when matching brackets
+set mat=2
+"
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+"
+" Add extra margin space on left
+set foldcolumn=1
+"
+"
+"" Colorscheme
+colorscheme material
+"colorscheme bluished
+"colorscheme Deeper
+"colorscheme Gray_Days_are_the_Best_Days
+"colorscheme Purple_Drinked
+"colorscheme Reddest
+"colorscheme SeaWeedz
+"colorscheme Strawberry_Fiords
+"colorscheme TooMuchPink
+"colorscheme Yes_We_Ate_Our_Vegetables
+"colorscheme TooMuchPink
+"
+"set background=dark
+"
+" Fast edit config
+map <leader>e :e! ~/.vim_runtime/my_configs.vim<cr>
+autocmd! bufwritepost vimrc source ~/.vim_runtime/my_configs.vim
+"
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+"
+""
+set laststatus=2
+set statusline=%<%f\
+set statusline+=%w%h%m%r
+set statusline+=\[%{&ff}/%Y]
+set statusline+=\[%{getcwd()}]
+set statusline+=\[A=\%03.3b/H=%02.2B]
+set statusline+=%=%-14.(%l,%c%V%)\ %p%%
+set backspace=indent,eol,start
+set linespace=0
+"
+" cursor
+set cursorline
+hi CursorLine term=bold cterm=bold guibg=Grey40
+hi CursorColumn guibg=#FF0000
+"
+" Delete trailing white space on save
+function DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunction
+autocmd BufWrite *.py :call DeleteTrailingWS()
+"
+" Automatically enable mouse usage
+set mouse=a  
+"
+"  Hide the mouse cursor while typing
+set mousehide
+"
+"
+" Cursor past last character
+set virtualedit=onemore             
+"    
+"
+" Spell Check
+set spell
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+"
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+" Quickly open a markdown buffer for scribble
+map <leader>x :e ~/buffer.md<cr>
+"
+" Allow buffer switching without saving
+set hidden
+"
+" Display the current mode
+set showmode
+"
+"
+" is a word
+" '.' is an end of word designator
+set iskeyword-=
+" '#' is an end of word designator
+set iskeyword-=#
+" '-' is an end of word designator
+set iskeyword-=-
+" "*" is an end of word designator
+set iskeyword-=*
+"
+" Smart wrap
+set wrap linebreak nolist
+"
+"
+" Vimwiki Stuff
+"
+" vimwiki Calendar
+au BufRead,BufNewFile *.wiki set filetype=vimwiki
+:autocmd FileType vimwiki map l :VimwikiMakeDiaryNote
+function! ToggleCalendar()
+  execute “:Calendar”
+  if exists("g:calendar_open")
+    if g:calendar_open == 1
+      execute “q”
+      unlet g:calendar_open
+    else
+      g:calendar_open = 1
+    end
+  else
+    let g:calendar_open = 1
+  end
+endfunction
+"
+autocmd FileType vimwiki map c 
+call ToggleCalendar()Bundle
+
+let g:calendar_openvimiwiki_use_calendar=1
+
+let g:vimwiki_toc_header="Contents"
+
+let g:vimwiki_folding="expr"
+
+let g:vimwiki_ext2syntax={".tex": "latex",
+                        \ ".md": "markdown",
+                        \ ".wiki": "media",
+                        \ ".bib" : "bibtex"}
+
+    :hi VimwikiHeader1 guifg=#A00000
+    :hi VimwikiHeader2 guifg=#CCBA00
+    :hi VimwikiHeader3 guifg=#00E000
+    :hi VimwikiHeader4 guifg=#000CCD
+    :hi VimwikiHeader5 guifg=#A00AAA
+    :hi VimwikiHeader6 guifg=#C0DDDD
+"
+"
+" Syntastic
+"
+" Python
+let g:syntastic_python_checkers=['pyflakes']

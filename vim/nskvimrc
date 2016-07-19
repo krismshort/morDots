@@ -1,0 +1,52 @@
+set nocompatible
+" Plugins
+set filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('/.vim/bundle')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+"
+Plugin "mattn/calendar-vim"
+Plugin "vimwiki/vimwiki"
+Plugin "lervag/vimtex"
+Plugin "teranex/vimwiki-tasks"
+Plugin "petercrlane/vimwiki-find-tag"
+Plugin "mbadolato/iTerm2-Color-Schemes"
+Plugin "baruchel/vim-notebook"
+Plugin "wannesm/wmgraphviz.vim"
+call vundle#end()
+"
+" Filetype plugins
+filetype on
+"
+set virtualedit=onemore
+set background=dark
+set term=ansi
+syntax enable
+syntax on
+set history=1000
+set undolevels=1000
+set showmode
+colorscheme default
+set cursorline
+hi CursorLine term=bold cterm=bold guibg=Grey40
+hi CursorColumn guibg=#FF0000
+set ruler
+set showcmd
+set backspace=indent,eol,start
+set linespace=0
+set nu
+set showmatch
+set incsearch
+set hlsearch
+set smartcase
+set scrolljump=5
+set scrolloff=3
+set autoindent
+set shiftwidth=4
+set expandtab
+set tabstop=4
+set softtabstop=4

@@ -1,0 +1,2 @@
+right_now=$(date +"%x %r %Z")
+time_stamp="Updated: $right_now"
